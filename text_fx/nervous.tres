@@ -1,0 +1,6 @@
+[gd_resource type="RichTextEffect" load_steps=2 format=3 uid="uid://dbnclb16gjtxe"]
+
+[ext_resource type="Script" path="res://text_fx/nervous.gd" id="1_a7okj"]
+
+[resource]
+script = ExtResource("1_a7okj")

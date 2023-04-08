@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu1avruf18d6x"]
+
+[ext_resource type="Script" path="res://material_fwd.gd" id="1_gctht"]
+[ext_resource type="Texture2D" uid="uid://bv53tturbwm7j" path="res://icon.svg" id="2_vvuve"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fcnbo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vflpi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxeaq"]
+albedo_texture = ExtResource("2_vvuve")
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2
+grow_amount = 1.129
+
+[node name="Plane3D" type="Node3D"]
+script = ExtResource("1_gctht")
+texture = ExtResource("2_vvuve")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_fcnbo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_vflpi")
+surface_material_override/0 = SubResource("StandardMaterial3D_jxeaq")

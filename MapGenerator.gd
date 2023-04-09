@@ -1,48 +1,47 @@
-@tool
-extends MapData
+extends Node3D
 class_name MapGenerator
-@export var palette: BlockPalette
-var noise: Noise
-@export var from : Vector3i
-@export var to : Vector3i
-@export var _noise: Noise:
-	set(value):
-		noise = value;
-		generate(from, to)
-	get:
-		return noise
-@export var sample_step = 0.1
-@export var do_generate = false:
-	set(value):
-		generate(from, to)
-	get:
-		return false;
 
-func generate(from: Vector3i, to: Vector3i):
-	print("trying to generate")
-	var x = from.x;
-	var y = from.y;
-	var z = from.z;
+@export var start: Node3D
+@export var end: Node3D
+@export var seed: int = 0
+@export var out: MapData
+@export var node_palette: Array[Script]
+@export var node_min_dimensions: int 
+@export var node_min_distance: int = 10
+@export var node_max_distance: int = 40
+@export var start_node_idx = 0;
+@export var end_node_idx = 1;
+@export var max_nodes = 10;
+var root: MapGeneratorNode
+var goal: MapGeneratorNode
+
+var cursor: MapGeneratorNode
+func generate():
+	var rng = RandomNumberGenerator.new()
+	rng.seed = seed
 	
-	while(x < to.x):
-		y = from.y
-		while(y < to.y):
-			z = from.z;
-			while(z < to.z):
-				var xf = x * sample_step
-				var yf = y * sample_step
-				var zf = z * sample_step
-				
-				print(x, '!', y, '!', z)
-				
-				var val = noise.get_noise_3d(xf, yf, zf)
-				print(val)
-				var palette_steps = palette.data.size()
-				var block = roundi(val * palette_steps) - 1
-				print(block)
-				if block >= 0:
-					self.set_block(Vector3i(x,y,z), block);
-				z += 1;
-			y += 1;
-		x += 1;
+	#generate root
+	root = Node3D.new()
+	root.name="root"
+	root.global_position = start.global_position
+	root.set_script(node_palette[start_node_idx]);
+	
+	self.add_child(root);
+	
+	cursor = root
+	
+	#generate some nodes
+	
+	var num_nodes = rng.randi_range(0, max_nodes);
+	for i in num_nodes:
+		var node_kind = rng.randi_range(0, node_palette.size())
+		var node_pos = Vector3i(cursor.position) + Vector3i(rng.randi_range(node_min_distance, node_max_distance), rng.randi_range(node_min_distance, node_max_distance), rng.randi_range(node_min_distance, node_max_distance))
+		var node_dimensions = Vector3i()
+	
+	#generate end
+	goal = Node3D.new()
+	goal.name = "goal"
+	goal.global_position = end.global_position
+	goal.set_script(node_palette[end_node_idx]);
+	
 	

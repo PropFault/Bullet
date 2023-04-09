@@ -1,7 +1,11 @@
-extends MapData
-class_name MapGenNode
+extends Node3D
+class_name MapGeneratorNode
 
-@export var start: Node3D
-@export var end: Node3D
-@export var seed: int = 0
+func init_values(rng: RandomNumberGenerator):
+	pass
 
+func get_data():
+	pass
+
+func get_aabb():
+	pass

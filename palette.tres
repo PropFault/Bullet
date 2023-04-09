@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BlockPalette" load_steps=3 format=3 uid="uid://b3wv3sf5w4nji"]
+
+[ext_resource type="Script" path="res://MapPalette.gd" id="1_3e777"]
+[ext_resource type="PackedScene" uid="uid://cu1avruf18d6x" path="res://plane.tscn" id="1_26xkf"]
+
+[resource]
+script = ExtResource("1_3e777")
+data = Array[PackedScene]([ExtResource("1_26xkf")])

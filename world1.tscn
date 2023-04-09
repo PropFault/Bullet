@@ -1,10 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsraglujdbagb"]
+[gd_scene load_steps=6 format=3 uid="uid://bsraglujdbagb"]
 
-[ext_resource type="PackedScene" uid="uid://cu1avruf18d6x" path="res://plane.tscn" id="1_6q057"]
-[ext_resource type="Texture2D" uid="uid://c72ry6hhdhfr8" path="res://waverock.png" id="2_k54cy"]
+[ext_resource type="Script" path="res://Map.gd" id="2_psi8g"]
+[ext_resource type="Script" path="res://MapGenerator.gd" id="3_ly8he"]
+[ext_resource type="Resource" uid="uid://b3wv3sf5w4nji" path="res://palette.tres" id="4_w4cai"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c5dj8"]
+
+[sub_resource type="Resource" id="Resource_ircws"]
+script = ExtResource("3_ly8he")
+palette = ExtResource("4_w4cai")
+from = Vector3i(-50, -50, -50)
+to = Vector3i(50, 50, 50)
+_noise = SubResource("FastNoiseLite_c5dj8")
+sample_step = 3.0
+do_generate = false
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000577211, 0.00386345, -0.00306988)
 
-[node name="Plane3D" parent="." instance=ExtResource("1_6q057")]
-transform = Transform3D(42, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, 0)
-texture = ExtResource("2_k54cy")
+[node name="Map" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000577211, -0.00386345, 0.00306988)
+script = ExtResource("2_psi8g")
+_data = SubResource("Resource_ircws")
+palette = ExtResource("4_w4cai")

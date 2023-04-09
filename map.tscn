@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcrmi46fxti2y"]
+
+[ext_resource type="Script" path="res://Map.gd" id="1_i6qt4"]
+[ext_resource type="Resource" uid="uid://b3wv3sf5w4nji" path="res://palette.tres" id="2_4uka3"]
+
+[node name="Map" type="Node3D"]
+script = ExtResource("1_i6qt4")
+palette = ExtResource("2_4uka3")
